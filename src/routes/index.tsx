@@ -10,7 +10,7 @@ import { Certifications } from "@/components/portfolio/Certifications";
 import { Achievements } from "@/components/portfolio/Achievements";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
-import { Loader } from "@/components/portfolio/Loader";
+import { SocialDock } from "@/components/portfolio/SocialDock";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,18 +19,18 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Portfolio of Akif Rifath, an Electronics and Communication Engineering student passionate about cybersecurity, artificial intelligence, networking, and electronics.",
+          "Portfolio of Akif Rifath — Electronics & Communication Engineering student focused on cybersecurity, AI, networking, and electronics.",
       },
       {
         name: "keywords",
         content:
-          "Akif Rifath, Cybersecurity, Electronics and Communication Engineering, AI, Machine Learning, Portfolio, PSG College of Technology, Networking, Python, OpenCV",
+          "Akif Rifath, Cybersecurity, ECE, AI, Machine Learning, Portfolio, PSG College of Technology, Networking, Python, OpenCV",
       },
       { property: "og:title", content: "Akif Rifath | Portfolio" },
       {
         property: "og:description",
         content:
-          "Electronics & Communication Engineering student — cybersecurity, AI/ML, networking, and embedded systems.",
+          "Electronics & Communication Engineering student — cybersecurity, AI/ML, networking, embedded systems.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -39,14 +39,14 @@ export const Route = createFileRoute("/")({
       {
         name: "twitter:description",
         content:
-          "Electronics & Communication Engineering student — cybersecurity, AI/ML, networking, and embedded systems.",
+          "Electronics & Communication Engineering student — cybersecurity, AI/ML, networking, embedded systems.",
       },
     ],
     links: [
       { rel: "canonical", href: "/" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
@@ -55,9 +55,9 @@ export const Route = createFileRoute("/")({
 
 function Portfolio() {
   return (
-    <div className="relative min-h-dvh">
-      <Loader />
+    <div className="relative min-h-dvh bg-black text-white">
       <Navbar />
+      <SocialDock />
       <main>
         <Hero />
         <About />

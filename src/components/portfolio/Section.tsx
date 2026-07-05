@@ -4,36 +4,38 @@ import type { ReactNode } from "react";
 
 export function Section({
   id,
-  eyebrow,
+  index,
   title,
-  subtitle,
   children,
 }: {
   id: string;
-  eyebrow?: string;
+  index: string;
   title: string;
-  subtitle?: string;
   children: ReactNode;
 }) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.08 });
   return (
-    <section id={id} ref={ref} className="relative mx-auto max-w-6xl scroll-mt-24 px-6 py-24">
+    <section
+      id={id}
+      ref={ref}
+      className="relative mx-auto max-w-[1400px] scroll-mt-24 px-6 py-32 md:px-12 md:py-48"
+    >
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="mb-14 text-center"
+        transition={{ duration: 1 }}
+        className="mb-20 grid grid-cols-12 items-end gap-6 border-b border-white/10 pb-8"
       >
-        {eyebrow && (
-          <div className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-[#00D9FF]">
-            {eyebrow}
+        <div className="col-span-12 md:col-span-3">
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+            / {index}
           </div>
-        )}
-        <h2 className="font-display text-4xl font-bold sm:text-5xl">
-          <span className="text-white">{title.split(" ")[0]} </span>
-          <span className="text-gradient">{title.split(" ").slice(1).join(" ")}</span>
-        </h2>
-        {subtitle && <p className="mx-auto mt-4 max-w-2xl text-[#94A3B8]">{subtitle}</p>}
+        </div>
+        <div className="col-span-12 md:col-span-9">
+          <h2 className="font-display text-4xl font-medium tracking-[-0.02em] text-white md:text-6xl lg:text-7xl">
+            {title}
+          </h2>
+        </div>
       </motion.div>
       {children}
     </section>
@@ -45,9 +47,9 @@ export function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: n
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

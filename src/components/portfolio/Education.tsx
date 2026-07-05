@@ -1,32 +1,36 @@
 import { Section, Reveal } from "./Section";
-import { FiBookOpen } from "react-icons/fi";
 
 const items = [
   {
     year: "2023 — 2027",
     school: "PSG College of Technology",
     degree: "Bachelor of Engineering — Electronics & Communication Engineering",
-    detail: "Coursework in signals, networking, embedded systems, and digital electronics. Independent focus on cybersecurity and machine learning.",
+    detail: "Signals, networking, embedded systems, and digital electronics. Independent focus on cybersecurity and machine learning.",
   },
 ];
 
 export function Education() {
   return (
-    <Section id="education" eyebrow="02 — Journey" title="Education">
-      <div className="relative mx-auto max-w-3xl">
-        <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-[#00D9FF] via-[#8B5CF6] to-transparent md:left-1/2" />
+    <Section id="education" index="02 — Education" title="Education.">
+      <div className="relative border-l border-white/15 pl-8 md:pl-16">
         {items.map((it, i) => (
-          <Reveal key={i} delay={i * 0.1}>
-            <div className="relative mb-10 pl-12 md:pl-0">
-              <div className="absolute left-2 top-4 h-4 w-4 rounded-full bg-[#00D9FF] ring-4 ring-[#00D9FF]/20 md:left-1/2 md:-translate-x-1/2" />
-              <div className={`md:w-1/2 ${i % 2 ? "md:ml-auto md:pl-10" : "md:pr-10"}`}>
-                <div className="glass group rounded-2xl p-6 transition-all hover:glow-violet">
-                  <div className="mb-2 flex items-center gap-2 font-mono text-xs text-[#8B5CF6]">
-                    <FiBookOpen /> {it.year}
+          <Reveal key={i}>
+            <div className="relative">
+              <span className="absolute -left-[41px] top-2 h-2 w-2 rounded-full bg-white md:-left-[73px]" />
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-12 md:col-span-3">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+                    {it.year}
                   </div>
-                  <h3 className="text-lg font-bold text-white">{it.school}</h3>
-                  <div className="mt-1 text-sm text-[#00D9FF]">{it.degree}</div>
-                  <p className="mt-3 text-sm text-[#94A3B8]">{it.detail}</p>
+                </div>
+                <div className="col-span-12 md:col-span-9">
+                  <h3 className="font-display text-3xl font-medium tracking-[-0.02em] text-white md:text-4xl">
+                    {it.school}
+                  </h3>
+                  <div className="mt-3 text-sm text-white/70">{it.degree}</div>
+                  <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/60">
+                    {it.detail}
+                  </p>
                 </div>
               </div>
             </div>

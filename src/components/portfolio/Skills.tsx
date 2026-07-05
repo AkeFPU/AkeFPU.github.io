@@ -1,88 +1,41 @@
 import { Section, Reveal } from "./Section";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { FiCode, FiShield, FiCpu, FiTool } from "react-icons/fi";
 
 const categories = [
-  {
-    icon: FiCode,
-    title: "Programming",
-    skills: [
-      { name: "Python", level: 88 },
-      { name: "C", level: 78 },
-      { name: "C++", level: 75 },
-    ],
-  },
-  {
-    icon: FiShield,
-    title: "Cybersecurity",
-    skills: [
-      { name: "Linux", level: 82 },
-      { name: "Kali Linux", level: 75 },
-      { name: "Networking", level: 78 },
-      { name: "Wireshark", level: 72 },
-      { name: "Pen-testing Fundamentals", level: 68 },
-    ],
-  },
-  {
-    icon: FiCpu,
-    title: "AI & Data",
-    skills: [
-      { name: "Machine Learning", level: 78 },
-      { name: "OpenCV", level: 80 },
-      { name: "Data Analysis", level: 74 },
-    ],
-  },
-  {
-    icon: FiTool,
-    title: "Tools",
-    skills: [
-      { name: "Git", level: 85 },
-      { name: "GitHub", level: 88 },
-      { name: "VS Code", level: 92 },
-      { name: "MATLAB", level: 70 },
-    ],
-  },
+  { title: "Programming", items: ["Python", "C", "C++"] },
+  { title: "Cybersecurity", items: ["Linux", "Kali Linux", "Networking", "Wireshark", "Pen-testing Fundamentals"] },
+  { title: "AI & Data", items: ["Machine Learning", "OpenCV", "Data Analysis"] },
+  { title: "Tools", items: ["Git", "GitHub", "VS Code", "MATLAB"] },
 ];
-
-function Bar({ name, level }: { name: string; level: number }) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
-  return (
-    <div ref={ref}>
-      <div className="mb-1 flex items-center justify-between text-xs">
-        <span className="text-white">{name}</span>
-        <span className="font-mono text-[#00D9FF]">{level}%</span>
-      </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : {}}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="h-full rounded-full bg-gradient-to-r from-[#00D9FF] to-[#8B5CF6]"
-        />
-      </div>
-    </div>
-  );
-}
 
 export function Skills() {
   return (
-    <Section id="skills" eyebrow="05 — Toolbox" title="Skills & Stack">
-      <div className="grid gap-6 md:grid-cols-2">
+    <Section id="skills" index="05 — Toolkit" title="Skills.">
+      <div className="grid grid-cols-1 gap-px border border-white/10 md:grid-cols-2">
         {categories.map((cat, i) => (
-          <Reveal key={cat.title} delay={i * 0.08}>
-            <div className="glass h-full rounded-2xl p-6 transition-all hover:border-[#00D9FF]/40">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[#00D9FF]/20 to-[#8B5CF6]/20 text-[#00D9FF]">
-                  <cat.icon />
-                </span>
-                <h3 className="font-display text-lg font-bold text-white">{cat.title}</h3>
+          <Reveal key={cat.title} delay={i * 0.06}>
+            <div className="relative h-full bg-black p-10 outline outline-1 outline-white/10 transition-colors hover:bg-white/[0.02]">
+              <div className="mb-8 flex items-center justify-between">
+                <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
+                  / {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">
+                  {cat.items.length} items
+                </div>
               </div>
-              <div className="space-y-4">
-                {cat.skills.map((s) => (
-                  <Bar key={s.name} {...s} />
+              <h3 className="font-display text-3xl font-medium tracking-[-0.02em] text-white">
+                {cat.title}
+              </h3>
+              <ul className="mt-8 space-y-3">
+                {cat.items.map((s) => (
+                  <li
+                    key={s}
+                    className="flex items-center justify-between border-b border-white/5 pb-3 text-base text-white/80"
+                  >
+                    <span>{s}</span>
+                    <span className="font-mono text-[10px] text-white/30">—</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </Reveal>
         ))}
