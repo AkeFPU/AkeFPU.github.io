@@ -1,69 +1,131 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Section, Reveal } from "./Section";
 
-const focusAreas = ["Network Security", "SOC & Threat Detection", "Security Scripting", "Systems & Tools"];
+const interests = ["Network Security", "SOC & Threat Detection", "Security Scripting", "Systems & Tools"];
 
-function IdentityTerminal() {
+function RadarBackdrop() {
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      <svg viewBox="0 0 400 400" className="h-full w-full text-white/20" fill="none">
+        {[150, 112, 74, 36].map((r) => (
+          <circle key={r} cx="200" cy="200" r={r} stroke="currentColor" strokeWidth="0.5" />
+        ))}
+        {Array.from({ length: 8 }).map((_, i) => {
+          const a = (i / 8) * Math.PI * 2;
+          return (
+            <line
+              key={i}
+              x1={200 + Math.cos(a) * 36}
+              y1={200 + Math.sin(a) * 36}
+              x2={200 + Math.cos(a) * 150}
+              y2={200 + Math.sin(a) * 150}
+              stroke="currentColor"
+              strokeWidth="0.4"
+            />
+          );
+        })}
+        <circle cx="200" cy="200" r="188" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1.5 7" />
+      </svg>
+
+      {/* rotating sweep */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+        style={{
+          background:
+            "conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.14) 18deg, transparent 55deg)",
+          maskImage: "radial-gradient(circle at center, black 60%, transparent 78%)",
+          WebkitMaskImage: "radial-gradient(circle at center, black 60%, transparent 78%)",
+        }}
+      />
+
+      <div className="absolute left-1/2 top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/50" />
+    </div>
+  );
+}
+
+function IdentityScanCard() {
   const [step, setStep] = useState(0);
-  const totalLines = 4 + focusAreas.length + 2;
+  const totalLines = 4 + interests.length + 2;
 
   useEffect(() => {
     if (step >= totalLines) return;
-    const t = setTimeout(() => setStep((s) => s + 1), 200);
+    const t = setTimeout(() => setStep((s) => s + 1), 220);
     return () => clearTimeout(t);
   }, [step, totalLines]);
 
   const line = (i: number) => step > i;
 
   return (
-    <div className="w-full border border-white/15 bg-black px-5 py-5 font-mono text-[12px] leading-relaxed">
-      {/* window chrome */}
-      <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
-        <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
-        <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/60" />
-        <span className="ml-2 text-[9px] uppercase tracking-[0.2em] text-white/40">
-          shell — akif@sec
+    <div className="relative min-h-[420px] w-full overflow-hidden border border-white/15 bg-black">
+      <RadarBackdrop />
+
+      {/* corner labels, echoing the Hero graphic's annotation style */}
+      <div className="absolute left-4 top-4 font-mono text-[9px] uppercase tracking-[0.3em] text-white/35">
+         / IDENTITY_SCAN
+      </div>
+      <div className="absolute right-4 top-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.3em] text-white/35">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/40" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white/70" />
         </span>
+        scanning
+      </div>
+      {/* terminal readout, floating over the radar */}
+      <div className="relative mx-4 mb-10 mt-14 flex flex-col border border-white/10 bg-black/75 px-5 py-5 font-mono text-[12px] leading-relaxed backdrop-blur-sm">
+        <div className="mb-3 flex items-center justify-between border-b border-white/10 pb-2.5">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-white/40">
+            root@akif :: ~/profile
+          </span>
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-white/20" />
+            <span className="h-2 w-2 rounded-full bg-white/20" />
+            <span className="h-2 w-2 rounded-full bg-white/20" />
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
+          {line(0) && (
+            <div>
+              <span className="text-white/40">$</span> <span className="text-white/80">whoami</span>
+            </div>
+          )}
+          {line(1) && (
+            <div className="pl-4 text-white/50">› akif.rifath — network security / soc track</div>
+          )}
+
+          {line(2) && (
+            <div className="pt-2">
+              <span className="text-white/40">$</span>{" "}
+              <span className="text-white/80">cat ./focus.txt</span>
+            </div>
+          )}
+          {interests.map((it, idx) => (
+            <div key={it}>{line(3 + idx) && <div className="pl-4 text-white/50">› {it}</div>}</div>
+          ))}
+
+          {line(3 + interests.length) && (
+            <div className="pt-2">
+              <span className="text-white/40">$</span>{" "}
+              <span className="text-white/80">./status --check</span>
+            </div>
+          )}
+          {line(4 + interests.length) && (
+            <div className="flex items-center gap-2 pl-4 text-white/70">
+              <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-emerald-400" />
+              status: exploring opportunities
+            </div>
+          )}
+          {step < totalLines && (
+            <span className="inline-block h-[13px] w-[6px] translate-y-[2px] animate-pulse bg-white/60" />
+          )}
+        </div>
       </div>
 
-      <div className="space-y-1.5">
-        {line(0) && (
-          <div>
-            <span className="text-white/40">$</span> <span className="text-white/80">whoami</span>
-          </div>
-        )}
-        {line(1) && (
-          <div className="pl-4 text-white/50">› akif.rifath — network security / soc track</div>
-        )}
-
-        {line(2) && (
-          <div className="pt-2">
-            <span className="text-white/40">$</span>{" "}
-            <span className="text-white/80">cat ./focus.txt</span>
-          </div>
-        )}
-        {focusAreas.map((it, idx) => (
-          <div key={it}>{line(3 + idx) && <div className="pl-4 text-white/50">› {it}</div>}</div>
-        ))}
-
-        {line(3 + focusAreas.length) && (
-          <div className="pt-2">
-            <span className="text-white/40">$</span>{" "}
-            <span className="text-white/80">./status --check</span>
-          </div>
-        )}
-        {line(4 + focusAreas.length) && (
-          <div className="flex items-center pl-4 text-white/70">
-            <span className="relative mr-2 flex h-1.5 w-1.5">
-              <span className="absolute h-full w-full animate-pulse rounded-full bg-emerald-400" />
-            </span>
-            ready · open to opportunities
-          </div>
-        )}
-        {step < totalLines && (
-          <span className="inline-block h-[13px] w-[6px] translate-y-[2px] animate-pulse bg-white/60" />
-        )}
+      <div className="relative px-4 pb-4 text-right font-mono text-[9px] uppercase tracking-[0.3em] text-white/35">
+        REV 2026.01
       </div>
     </div>
   );
@@ -101,10 +163,10 @@ export function About() {
           </Reveal>
         </div>
 
-        {/* Right: minimal terminal identity card */}
+        {/* Right: radar-scan + terminal hybrid, replaces the plain interest list */}
         <div className="col-span-12 md:col-span-4">
           <Reveal delay={0.2}>
-            <IdentityTerminal />
+            <IdentityScanCard />
           </Reveal>
         </div>
       </div>
