@@ -48,20 +48,6 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-6 py-5 md:px-12">
-        {/* Terminal-style logo */}
-        <button
-          onClick={() => go("home")}
-          className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-white"
-        >
-          <span className="flex h-5 w-5 items-center justify-center border border-white/30 text-[10px] text-white/50 transition-colors group-hover:border-white/70 group-hover:text-white">
-            &gt;
-          </span>
-          <span>
-            akif<span className="text-white/40"></span>
-            <span className="ml-[2px] inline-block h-[11px] w-[6px] translate-y-[1px] animate-pulse bg-white/70 align-middle" />
-          </span>
-        </button>
-
         <ul className="hidden lg:flex items-center gap-8">
           {sections.map((s) => (
             <li key={s}>
@@ -104,7 +90,7 @@ export function Navbar() {
         </div>
 
         <button
-          className="lg:hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white"
+          className="ml-auto lg:hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white"
           onClick={() => setOpen(!open)}
           aria-label="Menu"
         >
