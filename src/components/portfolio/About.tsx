@@ -1,50 +1,58 @@
 import { Section, Reveal } from "./Section";
-import { FiCode, FiAward, FiCpu, FiTrendingUp } from "react-icons/fi";
 
-const stats = [
-  { icon: FiCode, label: "Projects Completed", value: "6+" },
-  { icon: FiAward, label: "Certifications Earned", value: "5+" },
-  { icon: FiCpu, label: "Technical Skills", value: "15+" },
-  { icon: FiTrendingUp, label: "Years of Learning", value: "3+" },
-];
+const interests = ["Cybersecurity", "Artificial Intelligence", "Networking", "Embedded Systems"];
 
 export function About() {
   return (
-    <Section id="about" eyebrow="01 — Introduction" title="About Me">
-      <div className="grid gap-8 lg:grid-cols-5">
+    <Section id="about" index="01 — Profile" title="About.">
+      <div className="grid grid-cols-12 gap-6 lg:gap-12">
+        {/* Left: geometric mark */}
         <Reveal>
-          <div className="glass border-glow rounded-2xl p-8 lg:col-span-3">
-            <p className="text-lg leading-relaxed text-[#E2E8F0]">
-              I am an{" "}
-              <span className="text-[#00D9FF] font-semibold">Electronics and Communication Engineering</span>{" "}
-              student at <span className="text-white font-semibold">PSG College of Technology</span> with
-              interests in cybersecurity, artificial intelligence, networking, and electronics.
-            </p>
-            <p className="mt-4 text-[#94A3B8] leading-relaxed">
-              I enjoy solving real-world problems through technology and building projects that bridge
-              hardware and software — from RF anomaly detection to computer-vision pipelines and
-              secure embedded systems.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Cybersecurity", "AI / ML", "Networking", "Embedded Systems", "Computer Vision"].map((t) => (
-                <span key={t} className="glass rounded-full px-3 py-1 text-xs font-mono text-[#00D9FF]">
-                  {t}
-                </span>
-              ))}
-            </div>
+          <div className="col-span-12 md:col-span-2">
+            <svg viewBox="0 0 100 200" className="h-40 w-full text-white/40" fill="none">
+              <line x1="50" y1="0" x2="50" y2="200" stroke="currentColor" strokeWidth="0.5" />
+              <circle cx="50" cy="30" r="8" stroke="currentColor" strokeWidth="0.5" />
+              <rect x="42" y="90" width="16" height="16" stroke="currentColor" strokeWidth="0.5" />
+              <path d="M 42 170 L 50 158 L 58 170 Z" stroke="currentColor" strokeWidth="0.5" />
+            </svg>
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-2 gap-4 lg:col-span-2">
-          {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.08}>
-              <div className="glass group h-full rounded-2xl p-5 transition-all hover:-translate-y-1 hover:glow-cyan">
-                <s.icon className="mb-3 text-2xl text-[#00D9FF] transition-transform group-hover:scale-110" />
-                <div className="font-display text-3xl font-bold text-gradient">{s.value}</div>
-                <div className="mt-1 text-xs text-[#94A3B8]">{s.label}</div>
-              </div>
-            </Reveal>
-          ))}
+        <div className="col-span-12 md:col-span-6">
+          <Reveal delay={0.1}>
+            <p className="text-2xl leading-[1.5] tracking-[-0.01em] text-white/90 md:text-3xl">
+              I'm an <span className="text-white">Electronics & Communication Engineering</span> student at{" "}
+              <span className="text-white">PSG College of Technology</span>, exploring the seam
+              between hardware and software.
+            </p>
+            <p className="mt-8 text-base leading-relaxed text-white/60">
+              My work focuses on cybersecurity, artificial intelligence, networking, and embedded
+              electronics — from ML-driven RF anomaly detection to computer-vision pipelines and
+              Linux-based security tooling. I care about clean systems, rigorous thinking, and
+              things that actually work in the field.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="col-span-12 md:col-span-4">
+          <Reveal delay={0.2}>
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+              / Areas of interest
+            </div>
+            <ul className="mt-6 space-y-4 border-t border-white/10">
+              {interests.map((i, idx) => (
+                <li
+                  key={i}
+                  className="flex items-baseline justify-between border-b border-white/10 pb-4 pt-4"
+                >
+                  <span className="font-display text-xl text-white">{i}</span>
+                  <span className="font-mono text-[10px] text-white/40">
+                    0{idx + 1}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </div>
     </Section>

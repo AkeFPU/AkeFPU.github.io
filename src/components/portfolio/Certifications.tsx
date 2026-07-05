@@ -1,55 +1,34 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Section, Reveal } from "./Section";
-import { FiAward, FiChevronDown, FiExternalLink } from "react-icons/fi";
 
 const certs = [
-  { title: "Cybersecurity Fundamentals", org: "Online Platform", date: "2024", detail: "Core concepts of confidentiality, integrity, availability, threat models, and defensive controls." },
-  { title: "Python for Data Science", org: "Online Platform", date: "2024", detail: "Data manipulation, visualization, and applied ML workflows with the Python data stack." },
-  { title: "Networking Essentials", org: "Online Platform", date: "2024", detail: "TCP/IP stack, routing, switching, and packet analysis with Wireshark." },
-  { title: "Linux Fundamentals", org: "Online Platform", date: "2024", detail: "Shell, file systems, permissions, and administration on Debian-based distributions." },
-  { title: "Machine Learning Basics", org: "Online Platform", date: "2024", detail: "Supervised and unsupervised learning, model evaluation, and feature engineering." },
+  { title: "Cybersecurity Fundamentals", org: "Online Platform", year: "2024" },
+  { title: "Python for Data Science", org: "Online Platform", year: "2024" },
+  { title: "Networking Essentials", org: "Online Platform", year: "2024" },
+  { title: "Linux Fundamentals", org: "Online Platform", year: "2024" },
+  { title: "Machine Learning Basics", org: "Online Platform", year: "2024" },
 ];
 
 export function Certifications() {
-  const [open, setOpen] = useState<number | null>(0);
   return (
-    <Section id="certifications" eyebrow="06 — Credentials" title="Certifications">
-      <div className="mx-auto max-w-3xl space-y-3">
+    <Section id="certifications" index="06 — Credentials" title="Certifications.">
+      <div className="border-t border-white/10">
         {certs.map((c, i) => (
-          <Reveal key={c.title} delay={i * 0.05}>
-            <div className="glass overflow-hidden rounded-2xl transition-all hover:border-[#00D9FF]/40">
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="flex w-full items-center gap-4 p-5 text-left"
-                aria-expanded={open === i}
-              >
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#00D9FF]/20 to-[#8B5CF6]/20 text-[#00D9FF]">
-                  <FiAward />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate font-semibold text-white">{c.title}</div>
-                  <div className="truncate text-xs text-[#94A3B8]">{c.org} · {c.date}</div>
-                </div>
-                <FiChevronDown className={`shrink-0 text-[#94A3B8] transition-transform ${open === i ? "rotate-180" : ""}`} />
-              </button>
-              <AnimatePresence>
-                {open === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="border-t border-white/10 px-5 pb-5 pt-4 text-sm text-[#94A3B8]">
-                      {c.detail}
-                      <a href="#" className="mt-3 inline-flex items-center gap-1.5 text-[#00D9FF] hover:underline">
-                        View credential <FiExternalLink />
-                      </a>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+          <Reveal key={c.title} delay={i * 0.04}>
+            <div className="group grid grid-cols-12 items-center gap-4 border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02]">
+              <div className="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 md:col-span-1">
+                /{String(i + 1).padStart(2, "0")}
+              </div>
+              <div className="col-span-10 md:col-span-7">
+                <h3 className="font-display text-xl font-medium tracking-[-0.01em] text-white md:text-2xl">
+                  {c.title}
+                </h3>
+              </div>
+              <div className="col-span-8 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50 md:col-span-3">
+                {c.org}
+              </div>
+              <div className="col-span-4 text-right font-mono text-[11px] uppercase tracking-[0.2em] text-white/60 md:col-span-1">
+                {c.year}
+              </div>
             </div>
           </Reveal>
         ))}

@@ -1,199 +1,175 @@
-import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { FiDownload, FiArrowDown, FiMail } from "react-icons/fi";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FiArrowDown, FiArrowUpRight } from "react-icons/fi";
 
-const roles = [
-  "Electronics & Communication Engineering Student",
-  "Cybersecurity Enthusiast",
-  "AI & Machine Learning Enthusiast",
-  "Aspiring Security Engineer",
-];
-
-function useTyping() {
-  const [text, setText] = useState("");
-  const [idx, setIdx] = useState(0);
-  const [del, setDel] = useState(false);
-
-  useEffect(() => {
-    const current = roles[idx];
-    const speed = del ? 40 : 70;
-    const t = setTimeout(() => {
-      if (!del) {
-        setText(current.slice(0, text.length + 1));
-        if (text.length + 1 === current.length) setTimeout(() => setDel(true), 1600);
-      } else {
-        setText(current.slice(0, text.length - 1));
-        if (text.length - 1 === 0) {
-          setDel(false);
-          setIdx((idx + 1) % roles.length);
-        }
-      }
-    }, speed);
-    return () => clearTimeout(t);
-  }, [text, del, idx]);
-  return text;
+function HeroGraphic() {
+  return (
+    <svg viewBox="0 0 600 600" className="h-full w-full text-white/30" fill="none">
+      <motion.g
+        animate={{ rotate: 360 }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "300px 300px" }}
+      >
+        {[280, 240, 200, 160, 120, 80].map((r) => (
+          <circle key={r} cx="300" cy="300" r={r} stroke="currentColor" strokeWidth="0.5" />
+        ))}
+        {Array.from({ length: 12 }).map((_, i) => {
+          const a = (i / 12) * Math.PI * 2;
+          return (
+            <line
+              key={i}
+              x1={300 + Math.cos(a) * 80}
+              y1={300 + Math.sin(a) * 80}
+              x2={300 + Math.cos(a) * 280}
+              y2={300 + Math.sin(a) * 280}
+              stroke="currentColor"
+              strokeWidth="0.4"
+            />
+          );
+        })}
+      </motion.g>
+      <motion.g
+        animate={{ rotate: -360 }}
+        transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "300px 300px" }}
+      >
+        <circle cx="300" cy="300" r="295" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 8" />
+      </motion.g>
+      <circle cx="300" cy="300" r="3" fill="currentColor" />
+      <text x="300" y="30" textAnchor="middle" className="fill-white/40 font-mono" fontSize="9" letterSpacing="4">
+        N
+      </text>
+      <text x="580" y="304" textAnchor="middle" className="fill-white/40 font-mono" fontSize="9" letterSpacing="4">
+        E
+      </text>
+      <text x="300" y="580" textAnchor="middle" className="fill-white/40 font-mono" fontSize="9" letterSpacing="4">
+        S
+      </text>
+      <text x="20" y="304" textAnchor="middle" className="fill-white/40 font-mono" fontSize="9" letterSpacing="4">
+        W
+      </text>
+    </svg>
+  );
 }
 
 export function Hero() {
-  const typed = useTyping();
-  const ref = useRef<HTMLDivElement>(null);
-  const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      if (!ref.current) return;
-      const r = ref.current.getBoundingClientRect();
-      setMouse({
-        x: (e.clientX - r.left) / r.width,
-        y: (e.clientY - r.top) / r.height,
-      });
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
   return (
-    <section
-      id="home"
-      ref={ref}
-      className="relative min-h-dvh overflow-hidden pt-32 pb-20"
-    >
-      {/* Cyber grid */}
-      <div className="absolute inset-0 cyber-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+    <section id="home" className="relative min-h-dvh overflow-hidden pt-32 grain">
+      <div className="pointer-events-none absolute inset-0 fine-grid opacity-60 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_80%)]" />
 
-      {/* Mouse glow */}
-      <div
-        className="pointer-events-none absolute h-[500px] w-[500px] rounded-full opacity-40 blur-3xl transition-transform duration-300"
-        style={{
-          left: `calc(${mouse.x * 100}% - 250px)`,
-          top: `calc(${mouse.y * 100}% - 250px)`,
-          background: "radial-gradient(circle, rgba(0,217,255,0.4), transparent 60%)",
-        }}
-      />
-
-      {/* Floating orbs */}
-      <div className="pointer-events-none absolute -top-20 -left-20 h-96 w-96 rounded-full bg-[#00D9FF]/20 blur-3xl animate-float" />
-      <div className="pointer-events-none absolute bottom-10 right-0 h-[500px] w-[500px] rounded-full bg-[#8B5CF6]/20 blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+      {/* Vertical guides */}
+      <div className="pointer-events-none absolute inset-y-0 left-1/4 w-px bg-white/[0.04]" />
+      <div className="pointer-events-none absolute inset-y-0 left-2/4 w-px bg-white/[0.04]" />
+      <div className="pointer-events-none absolute inset-y-0 left-3/4 w-px bg-white/[0.04]" />
 
       {/* Particles */}
-      {Array.from({ length: 30 }).map((_, i) => (
+      {Array.from({ length: 14 }).map((_, i) => (
         <motion.span
           key={i}
-          className="absolute h-1 w-1 rounded-full bg-[#00D9FF]"
-          style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%` }}
-          animate={{ y: [-20, 20, -20], opacity: [0.2, 0.8, 0.2] }}
-          transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: i * 0.2 }}
+          className="absolute h-[2px] w-[2px] rounded-full bg-white/40"
+          style={{ left: `${(i * 47) % 100}%`, top: `${(i * 73) % 100}%` }}
+          animate={{ opacity: [0.1, 0.6, 0.1] }}
+          transition={{ duration: 6 + (i % 4), repeat: Infinity, delay: i * 0.3 }}
         />
       ))}
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-mono text-[#00D9FF]"
-        >
-          <span className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse-glow" />
-          Available for opportunities
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.8 }}
-          className="mt-6 font-display text-5xl font-black tracking-tight sm:text-7xl md:text-8xl"
-        >
-          <span className="block text-white">Akif</span>
-          <span className="block text-gradient">Rifath</span>
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-6 flex h-8 items-center font-mono text-lg sm:text-xl"
-        >
-          <span className="text-[#00D9FF] mr-2">&gt;</span>
-          <span className="text-white">{typed}</span>
-          <span className="ml-1 h-6 w-[2px] animate-pulse-glow bg-[#00D9FF]" />
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.75 }}
-          className="mt-6 max-w-2xl text-base text-[#94A3B8] sm:text-lg"
-        >
-          Passionate about cybersecurity, artificial intelligence, networking, and electronics —
-          building innovative solutions that bridge hardware and software.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
-        >
-          <a
-            href="/resume.pdf"
-            download
-            className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#00D9FF] to-[#8B5CF6] px-6 py-3 font-semibold text-[#080B14] transition-all hover:scale-105 glow-cyan"
+      <div className="relative mx-auto grid max-w-[1400px] grid-cols-1 gap-16 px-6 py-16 md:px-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-10 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-white/60"
           >
-            <FiDownload className="transition-transform group-hover:translate-y-0.5" />
-            Download Resume
-          </a>
-          <a
-            href="#projects"
-            onClick={(e) => { e.preventDefault(); document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="glass inline-flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-white transition-all hover:bg-white/10"
-          >
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="glass inline-flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-white transition-all hover:bg-white/10"
-          >
-            <FiMail /> Contact Me
-          </a>
-        </motion.div>
+            <span className="h-px w-8 bg-white/40" />
+            // Available for opportunities
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.1 }}
-          className="mt-10 flex items-center gap-4"
-        >
-          {[
-            { Icon: FaGithub, href: "https://github.com/AkeFPU", label: "GitHub" },
-            { Icon: FaLinkedin, href: "https://www.linkedin.com/in/akif-rifath-11a650294/", label: "LinkedIn" },
-          ].map(({ Icon, href, label }) => (
-            <motion.a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={label}
-              whileHover={{ scale: 1.15, y: -4 }}
-              className="glass grid h-12 w-12 place-items-center rounded-xl text-xl text-white transition-colors hover:text-[#00D9FF] hover:glow-cyan"
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.15 }}
+            className="font-display text-[18vw] font-bold leading-[0.85] tracking-[-0.04em] text-white lg:text-[10rem] xl:text-[12rem]"
+          >
+            AKIF
+            <br />
+            <span className="text-white">RIFATH</span>
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-10 border-l border-white/20 pl-6"
+          >
+            <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/70">
+              Electronics & Communication Engineering Student
+            </div>
+            <div className="mt-1 font-mono text-[11px] uppercase tracking-[0.22em] text-white/50">
+              Cybersecurity Enthusiast &nbsp;/&nbsp; Aspiring Security Engineer
+            </div>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="mt-8 max-w-xl text-base leading-relaxed text-white/70"
+          >
+            Passionate about cybersecurity, artificial intelligence, networking, and electronics —
+            building innovative solutions that bridge hardware and software.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.85 }}
+            className="mt-10 flex flex-wrap gap-4"
+          >
+            <a
+              href="/resume.pdf"
+              download
+              className="group inline-flex items-center gap-3 border border-white/40 px-6 py-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white transition-all hover:border-white hover:bg-white hover:text-black"
             >
-              <Icon />
-            </motion.a>
-          ))}
-        </motion.div>
+              Download Resume
+              <FiArrowDown size={12} className="transition-transform group-hover:translate-y-0.5" />
+            </a>
+            <a
+              href="#projects"
+              onClick={(e) => { e.preventDefault(); document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }); }}
+              className="group inline-flex items-center gap-3 border border-white/20 px-6 py-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white/80 transition-all hover:border-white hover:text-white"
+            >
+              View Projects
+              <FiArrowUpRight size={12} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </motion.div>
+        </div>
 
-        <motion.a
-          href="#about"
-          onClick={(e) => { e.preventDefault(); document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 8, 0] }}
-          transition={{ delay: 1.3, y: { duration: 2, repeat: Infinity } }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#94A3B8]"
-          aria-label="Scroll down"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.4 }}
+          className="relative lg:col-span-5"
         >
-          <FiArrowDown className="text-2xl" />
-        </motion.a>
+          <div className="sticky top-32 aspect-square w-full max-w-[520px]">
+            <HeroGraphic />
+            <div className="absolute -top-4 left-0 font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+              FIG.01 / SIGNAL_TOPOLOGY
+            </div>
+            <div className="absolute -bottom-4 right-0 font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+              REV 2026.01
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom meta */}
+      <div className="pointer-events-none absolute bottom-6 left-0 right-0 mx-auto flex max-w-[1400px] items-end justify-between px-6 md:px-12">
+        <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+          Coimbatore, India &nbsp;/&nbsp; 11.02°N 76.96°E
+        </div>
+        <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+          Scroll ↓
+        </div>
       </div>
     </section>
   );
