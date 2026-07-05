@@ -10,7 +10,6 @@ import { Certifications } from "@/components/portfolio/Certifications";
 import { Achievements } from "@/components/portfolio/Achievements";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
-import { SocialDock } from "@/components/portfolio/SocialDock";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -20,7 +19,6 @@ function Portfolio() {
   return (
     <div className="relative min-h-dvh bg-black text-white">
       <Navbar />
-      <SocialDock />
       <main>
         <Hero />
         <About />

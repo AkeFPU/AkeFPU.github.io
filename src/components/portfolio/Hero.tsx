@@ -153,7 +153,7 @@ export function Hero() {
           <div className="sticky top-32 aspect-square w-full max-w-[520px]">
             <HeroGraphic />
             <div className="absolute -top-4 left-0 font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
-              FIG.01 / SIGNAL_TOPOLOGY
+               / SIGNAL_TOPOLOGY
             </div>
             <div className="absolute -bottom-4 right-0 font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
               REV 2026.01

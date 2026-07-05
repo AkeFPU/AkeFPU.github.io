@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FiGithub, FiLinkedin, FiTwitter, FiMail } from "react-icons/fi";
 
 const sections = [
   "Home", "About", "Education", "Experience", "Projects",
   "Skills", "Certifications", "Achievements", "Contact",
+];
+
+const socials = [
+  { Icon: FiGithub, href: "https://github.com/AkeFPU", label: "GitHub" },
+  { Icon: FiLinkedin, href: "https://www.linkedin.com/in/akif-rifath-11a650294/", label: "LinkedIn" },
+  { Icon: FiTwitter, href: "https://x.com/AkeFPU", label: "X" },
+  { Icon: FiMail, href: "#contact", label: "Email" },
 ];
 
 export function Navbar() {
@@ -39,12 +47,19 @@ export function Navbar() {
         scrolled ? "bg-black/80 backdrop-blur-md border-b border-white/10" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-12">
+      <nav className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-6 py-5 md:px-12">
+        {/* Terminal-style logo */}
         <button
           onClick={() => go("home")}
-          className="font-mono text-[11px] uppercase tracking-[0.25em] text-white"
+          className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-white"
         >
-          A. Rifath<span className="text-white/40"> — Portfolio</span>
+          <span className="flex h-5 w-5 items-center justify-center border border-white/30 text-[10px] text-white/50 transition-colors group-hover:border-white/70 group-hover:text-white">
+            &gt;
+          </span>
+          <span>
+            akif<span className="text-white/40"></span>
+            <span className="ml-[2px] inline-block h-[11px] w-[6px] translate-y-[1px] animate-pulse bg-white/70 align-middle" />
+          </span>
         </button>
 
         <ul className="hidden lg:flex items-center gap-8">
@@ -62,12 +77,31 @@ export function Navbar() {
           ))}
         </ul>
 
-        <button
-          onClick={() => go("contact")}
-          className="hidden lg:inline-block font-mono text-[10px] uppercase tracking-[0.22em] text-white/70 hover:text-white"
-        >
-          Get in touch →
-        </button>
+        {/* Right cluster: socials + CTA */}
+        <div className="hidden lg:flex items-center gap-6">
+          <ul className="flex items-center gap-4">
+            {socials.map(({ Icon, href, label }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer noopener"
+                  aria-label={label}
+                  className="block text-white/50 transition-colors hover:text-white"
+                >
+                  <Icon size={14} strokeWidth={1.25} />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <span className="h-4 w-px bg-white/15" />
+          <button
+            onClick={() => go("contact")}
+            className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/70 hover:text-white"
+          >
+            Get in touch →
+          </button>
+        </div>
 
         <button
           className="lg:hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white"
@@ -80,23 +114,39 @@ export function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.ul
+          <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             className="lg:hidden overflow-hidden border-t border-white/10 bg-black"
           >
-            {sections.map((s) => (
-              <li key={s} className="border-b border-white/5">
-                <button
-                  onClick={() => go(s)}
-                  className="block w-full px-6 py-4 text-left font-mono text-[11px] uppercase tracking-[0.22em] text-white/80"
+            <ul>
+              {sections.map((s) => (
+                <li key={s} className="border-b border-white/5">
+                  <button
+                    onClick={() => go(s)}
+                    className="block w-full px-6 py-4 text-left font-mono text-[11px] uppercase tracking-[0.22em] text-white/80"
+                  >
+                    {s}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center gap-6 px-6 py-5">
+              {socials.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer noopener"
+                  aria-label={label}
+                  className="text-white/50 transition-colors hover:text-white"
                 >
-                  {s}
-                </button>
-              </li>
-            ))}
-          </motion.ul>
+                  <Icon size={16} strokeWidth={1.25} />
+                </a>
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
