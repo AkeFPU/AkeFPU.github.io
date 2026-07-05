@@ -1,24 +1,75 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/portfolio/Navbar";
+import { Hero } from "@/components/portfolio/Hero";
+import { About } from "@/components/portfolio/About";
+import { Education } from "@/components/portfolio/Education";
+import { Experience } from "@/components/portfolio/Experience";
+import { Projects } from "@/components/portfolio/Projects";
+import { Skills } from "@/components/portfolio/Skills";
+import { Certifications } from "@/components/portfolio/Certifications";
+import { Achievements } from "@/components/portfolio/Achievements";
+import { Contact } from "@/components/portfolio/Contact";
+import { Footer } from "@/components/portfolio/Footer";
+import { Loader } from "@/components/portfolio/Loader";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Akif Rifath | Portfolio" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Akif Rifath, an Electronics and Communication Engineering student passionate about cybersecurity, artificial intelligence, networking, and electronics.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Akif Rifath, Cybersecurity, Electronics and Communication Engineering, AI, Machine Learning, Portfolio, PSG College of Technology, Networking, Python, OpenCV",
+      },
+      { property: "og:title", content: "Akif Rifath | Portfolio" },
+      {
+        property: "og:description",
+        content:
+          "Electronics & Communication Engineering student — cybersecurity, AI/ML, networking, and embedded systems.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Akif Rifath | Portfolio" },
+      {
+        name: "twitter:description",
+        content:
+          "Electronics & Communication Engineering student — cybersecurity, AI/ML, networking, and embedded systems.",
+      },
+    ],
+    links: [
+      { rel: "canonical", href: "/" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+    ],
+  }),
+  component: Portfolio,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Portfolio() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative min-h-dvh">
+      <Loader />
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Education />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Certifications />
+        <Achievements />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }
