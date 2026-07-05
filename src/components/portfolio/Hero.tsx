@@ -126,7 +126,7 @@ export function Hero() {
             className="mt-10 flex flex-wrap gap-4"
           >
             <a
-              href="/1pageresume.pdf"
+              href={`${import.meta.env.BASE_URL}1pageresume.pdf`}
               download
               className="group inline-flex items-center gap-3 border border-white/40 px-6 py-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white transition-all hover:border-white hover:bg-white hover:text-black"
             >
