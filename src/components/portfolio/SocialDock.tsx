@@ -1,10 +1,19 @@
 import { motion } from "framer-motion";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiMail, FiTwitter } from "react-icons/fi";
 
 export function SocialDock() {
   const items = [
     { Icon: FiGithub, href: "https://github.com/AkeFPU", label: "GitHub" },
-    { Icon: FiLinkedin, href: "https://www.linkedin.com/in/akif-rifath-11a650294/", label: "LinkedIn" },
+    {
+      Icon: FiLinkedin,
+      href: "https://www.linkedin.com/in/akif-rifath-11a650294/",
+      label: "LinkedIn",
+    },
+    {
+      Icon: FiTwitter,
+      href: "https://x.com/AkeFPU",
+      label: "X",
+    },
     { Icon: FiMail, href: "#contact", label: "Email" },
   ];
   return (

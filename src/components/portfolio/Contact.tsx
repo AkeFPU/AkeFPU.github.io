@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Section, Reveal } from "./Section";
 import { FiArrowUpRight, FiCopy, FiCheck } from "react-icons/fi";
 
-const EMAIL = "akifrifath@example.com";
+const EMAIL = "akifrifath5@gmail.com";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
@@ -48,6 +48,7 @@ export function Contact() {
               { label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
               { label: "LinkedIn", value: "in/akif-rifath", href: "https://www.linkedin.com/in/akif-rifath-11a650294/" },
               { label: "GitHub", value: "@AkeFPU", href: "https://github.com/AkeFPU" },
+              {label: "X", value: "@AkeFPU", href: "https://x.com/AkeFPU"},
             ].map((l) => (
               <a
                 key={l.label}

@@ -1,11 +1,8 @@
 import { Section, Reveal } from "./Section";
 
 const certs = [
-  { title: "Cybersecurity Fundamentals", org: "Online Platform", year: "2024" },
-  { title: "Python for Data Science", org: "Online Platform", year: "2024" },
-  { title: "Networking Essentials", org: "Online Platform", year: "2024" },
-  { title: "Linux Fundamentals", org: "Online Platform", year: "2024" },
-  { title: "Machine Learning Basics", org: "Online Platform", year: "2024" },
+  { title: "Microsoft Certified: Security, Compliance, and Identity Fundamentals", org: "Microsoft", year: "2024" },
+  { title: "EC-Council Certificate of Achievement – SQL Injection Attacks", org: "EC-Council", year: "2025" },
 ];
 
 export function Certifications() {

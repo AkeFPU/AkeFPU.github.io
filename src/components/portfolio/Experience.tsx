@@ -2,29 +2,25 @@ import { Section, Reveal } from "./Section";
 
 const items = [
   {
-    year: "2023 — Now",
-    title: "Independent Technical Practice",
-    org: "Self-directed",
-    detail: "End-to-end projects spanning RF sensing, computer vision, and Linux-based security tooling.",
+    year: "06/2026 – 06/2026",
+    title: "Networking and Infrastructure Intern",
+    org: "White House Business Solutions Pvt Ltd",
+    detail: "Gained practical exposure to TCP/IP, IP addressing, VLANs, Layer 2 and Layer 3 switching, STP, firewall concepts, and GNS3-based network simulation.",
   },
   {
-    year: "2024 — Now",
-    title: "Training Programs",
-    org: "Online Platforms & Coursework",
+    year: "12/2025 – 02/2026",
+    title: "Offensive Cyber Security Intern",
+    org: "InLighnX Global Pvt Ltd",
     detail: "Structured training in Python, machine learning, and cybersecurity fundamentals through labs and hands-on courses.",
   },
   {
-    year: "2024 — Now",
+    year: "05/03/2024 – 06/03/2024",
     title: "Workshops",
-    org: "Departmental & Technical Clubs",
-    detail: "Participation in workshops covering embedded systems, IoT, and network security.",
+    org: "Cappriccio Securities",
+    detail: "Workshop on Web Application Pen-testing and Bug Bounty.",
   },
-  {
-    year: "2025 —",
-    title: "Internships",
-    org: "Open to opportunities",
-    detail: "Actively seeking internships in security engineering, AI/ML, and embedded systems.",
-  },
+  
+
 ];
 
 export function Experience() {
