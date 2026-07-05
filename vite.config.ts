@@ -12,7 +12,7 @@ import tailwindcss from "@tailwindcss/vite";
 const REPO_NAME = "";
 
 export default defineConfig({
-  base: `/${REPO_NAME}/`,
+  base: REPO_NAME ? `/${REPO_NAME}/` : "/",
   plugins: [
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tailwindcss(),
