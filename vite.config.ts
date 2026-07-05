@@ -9,7 +9,7 @@ import tailwindcss from "@tailwindcss/vite";
 // your actual repository name (keep the leading and trailing slash).
 // If you deploy to a custom domain or a <user>.github.io *user/org* site
 // (i.e. the repo itself is named <user>.github.io), set this to "/" instead.
-const REPO_NAME = "rifath-visions";
+const REPO_NAME = "AkeFPU";
 
 export default defineConfig({
   base: `/${REPO_NAME}/`,
